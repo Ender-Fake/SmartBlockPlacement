@@ -16,3 +16,5 @@ With it, you can not only quickly place blocks, but also eliminate unnecessary a
 C помощью него вы не просто можете ставить быстро блоки, но и устранять лишние действия
 
 **[ПРЕДУПРЕЖДЕНИЕ]** На серверах некоторые Анти-Читы могут жаловаться за быстрое размешение блоков
+
+![Preview](preview.gif)
