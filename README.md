@@ -3,6 +3,9 @@
 
 [Fabric API](https://modrinth.com/mod/fabric-api) is required.
 
+[Modrinth](https://modrinth.com/mod/smartblockplacement)
+[CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/smartblockplacement)
+
 >EN_US:
 
 In vanilla Minecraft, if you hold the right mouse button on blocks you place slowly, this mod solves this problem.\
