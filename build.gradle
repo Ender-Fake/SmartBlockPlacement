@@ -54,6 +54,20 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+task srcZip(type: Zip) {
+    archiveClassifier = ''
+    //DirectoryScanner.removeDefaultExclude("**/.gitignore");
+    //getExcludes().remove(".gitignore")
+
+    from projectDir
+    include 'LICENCE', 'README', 'NOTICE', 'gradlew*'
+    include 'src/**/*'
+    include 'gradle/wrapper/**/*'
+    include 'gradle.properties', 'settings.gradle', 'build.gradle'
+    include '.gitignore'
+}
+assemble.dependsOn(srcZip)
+
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     if (JavaVersion.current() < javaVersion) {
@@ -71,6 +85,8 @@ jar {
         rename { "${it}_${project.archivesBaseName}"}
     }
 }
+
+
 
 // configure the maven publication
 publishing {
