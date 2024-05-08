@@ -1,0 +1,9 @@
+{
+  "category.smartblockplacement.name": "Smart Block Placement",
+  "key.smartblockplacement.switch_smart_placement": "Enable Smart Placement",
+  "text.smartblockplacement.enabled_smart_placement": "Smart Block Placement: %1$s",
+  "text.smartblockplacement.true": "Enabled",
+  "text.smartblockplacement.false": "Disabled",
+  "modmenu.summaryTranslation.smartblockplacement": "Fast and smart block placement.",
+  "modmenu.descriptionTranslation.smartblockplacement": "A client mod that adds a quick block placement feature, but does it smartly."
+}

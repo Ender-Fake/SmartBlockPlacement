@@ -1,0 +1,9 @@
+{
+  "category.smartblockplacement.name": "Умное размещение блоков",
+  "key.smartblockplacement.switch_smart_placement": "Переключить умное размещение",
+  "text.smartblockplacement.enabled_smart_placement": "Умное размещение блоков: %1$s",
+  "text.smartblockplacement.true": "Включено",
+  "text.smartblockplacement.false": "Выключено",
+  "modmenu.summaryTranslation.smartblockplacement": "Быстрое и умное размещение блоков.",
+  "modmenu.descriptionTranslation.smartblockplacement": "Клиентский мод, добавляющий функцию быстрого размещения блоков, но делает это умно."
+}
