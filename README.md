@@ -1,4 +1,6 @@
 # Smart Block Placement
+![Mod Showcase](icon-0.5x.png)
+
 [Fabric API](https://modrinth.com/mod/fabric-api) is required.
 
 >EN_US:
