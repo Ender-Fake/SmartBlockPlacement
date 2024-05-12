@@ -45,6 +45,7 @@ public abstract class GameRendererMixin{
             lastDirectionPos=null;
             lastDirection=null;
             lastDistance=0;
+            SmartBlockPlacementClient.tickPlacement=0;
         }
     }
 
