@@ -4,6 +4,8 @@
   "package": "com.enderium.smartblockplacement.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "GameRendererMixin",
+    "MinecraftAccessor",
     "MinecraftMixin"
   ],
   "injectors": {
