@@ -18,14 +18,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-;
-
 public class SmartBlockPlacementClient implements ClientModInitializer {
     private static SmartBlockPlacementClient INSTANCE;
     private static final String modid = "smartblockplacement";
     private static File fileConfigDir;
     public boolean enabledSmartPlacement = false;
-
+    public static int tickPlacement = 0;
 
     @Override
     public void onInitializeClient () {
@@ -36,7 +34,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
         KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+modid+".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"category."+modid+".name" ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-
+            if (tickPlacement>0) tickPlacement--;
             if (binding.consumeClick()) {
                 enabledSmartPlacement = !enabledSmartPlacement;
 
