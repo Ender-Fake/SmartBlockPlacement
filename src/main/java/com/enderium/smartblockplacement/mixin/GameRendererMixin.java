@@ -32,12 +32,12 @@ public abstract class GameRendererMixin{
     @Inject(method = "render", at = @At("TAIL"))
     public void tickUse(CallbackInfo ci){
         if (!SmartBlockPlacementClient.getEnabledSmartPlacement())return;
-        if (minecraft.options.keyUse.isDown()){
+        if (minecraft.player==null)return;
+        if (minecraft.options.keyUse.isDown()&&!minecraft.player.isUsingItem()){
             if (SmartBlockPlacementClient.tickPlacement==0&&checkValues()) {
                 SmartBlockPlacementClient.tickPlacement = 4;
                 ((MinecraftAccessor)minecraft).callStartUseItem();
                 setPostValues();
-
             }
         }
         else  {
@@ -48,6 +48,7 @@ public abstract class GameRendererMixin{
             SmartBlockPlacementClient.tickPlacement=0;
         }
     }
+
 
 
 
