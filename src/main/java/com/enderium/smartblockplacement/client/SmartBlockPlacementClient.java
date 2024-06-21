@@ -20,10 +20,21 @@ import java.io.IOException;
 
 public class SmartBlockPlacementClient implements ClientModInitializer {
     private static SmartBlockPlacementClient INSTANCE;
+    public static long pluginTick = 0;
     private static final String modid = "smartblockplacement";
     private static File fileConfigDir;
     public boolean enabledSmartPlacement = false;
     public static int tickPlacement = 0;
+    //private HashMap<Long, Queue<Runnable>> executorMap = new HashMap<>();
+
+    /*public void addExecutor(Runnable runnable){
+        addExecutor(0,runnable);
+    }
+    public void addExecutor(long tick,Runnable runnable){
+        tick+=pluginTick;
+        executorMap.putIfAbsent(tick, new ConcurrentLinkedQueue<>());
+        executorMap.get(tick).add(runnable);
+    }*/
 
     @Override
     public void onInitializeClient () {
@@ -32,8 +43,8 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
         enabledSmartPlacement=getEnabledSmartPlacement();
 
         KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+modid+".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"category."+modid+".name" ));
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            pluginTick++;
             if (tickPlacement>0) tickPlacement--;
             if (binding.consumeClick()) {
                 enabledSmartPlacement = !enabledSmartPlacement;
@@ -42,6 +53,20 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
                 client.gui.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement",Component.translatable("text.smartblockplacement."+enabledSmartPlacement)), false);
                 setEnabledSmartPlacement(enabledSmartPlacement);
             }
+            /*if (enabledSmartPlacement){
+                executorMap.keySet().stream().sorted().forEach(tick -> {
+                    if (tick<=pluginTick) {
+                        Queue<Runnable> queue=executorMap.remove(tick);
+                        if (queue != null){
+                            while (!queue.isEmpty()) {
+                                queue.poll().run();
+                            }
+                        };
+
+                    }
+                });
+
+            }*/
         });
     }
 
