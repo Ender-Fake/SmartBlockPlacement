@@ -1,10 +1,12 @@
 package com.enderium.smartblockplacement.mixin;
 
 import com.enderium.smartblockplacement.client.SmartBlockPlacementClient;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +21,8 @@ public abstract class GameRendererMixin{
 
     @Shadow @Final
     Minecraft minecraft;
+
+    @Shadow public abstract void render(DeltaTracker deltaTracker, boolean bl);
 
     @Unique
     public BlockHitResult lastBlockHit;
@@ -56,20 +60,21 @@ public abstract class GameRendererMixin{
     @Unique
     public boolean checkValues(){
         if (minecraft.hitResult instanceof BlockHitResult result) {
-            if (lastBlockHit!=null&&lastBlockHit==result) {
-                return false;
-            }
+            if (blockHitEquals(lastBlockHit, result)) return false;
             if (lastDirectionPos!=null&&lastDirectionPos.equals(result.getBlockPos())) {
-                if (lastDirection == null) {
-                    lastDirection = result.getDirection();
-                }
+                if (lastDirection == null) lastDirection = result.getDirection();
                 assert minecraft.player != null;
                 if (lastDirection == result.getDirection()) {
-                    return !(result.getBlockPos().getCenter().distanceTo(minecraft.player.getEyePosition()) - lastDistance < 0.6);
+                    return (result.getBlockPos().getCenter().distanceTo(minecraft.player.getEyePosition()) - lastDistance >= 0.8);
                 }
             }
         }
         return true;
+    }
+    @Unique
+    private static boolean blockHitEquals(BlockHitResult a, BlockHitResult b){
+        if (a==null||b==null)return false;
+        return a.getBlockPos().equals(b.getBlockPos())&&a.getDirection()==b.getDirection();
     }
 
     @Unique

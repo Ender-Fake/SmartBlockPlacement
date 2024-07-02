@@ -42,7 +42,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
         fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(modid+".json").toFile();
         enabledSmartPlacement=getEnabledSmartPlacement();
 
-        KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+modid+".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"category."+modid+".name" ));
+        KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+modid+".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT,"category."+modid+".name" ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             pluginTick++;
             if (tickPlacement>0) tickPlacement--;
