@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,11 +27,13 @@ public abstract class GameRendererMixin{
     @Unique
     public BlockHitResult lastBlockHit;
     @Unique
+    public Vec3 lastHitPos;
+    @Unique
     public BlockPos lastDirectionPos;
     @Unique
     public Direction lastDirection;
     @Unique
-    public double lastDistance=0;
+    public double maxDistance=0;
 
     @Inject(method = "render", at = @At("TAIL"))
     public void tickUse(CallbackInfo ci){
@@ -42,13 +44,15 @@ public abstract class GameRendererMixin{
                 SmartBlockPlacementClient.tickPlacement = 4;
                 ((MinecraftAccessor)minecraft).callStartUseItem();
                 setPostValues();
+
             }
         }
         else  {
             lastBlockHit=null;
+            lastHitPos=null;
             lastDirectionPos=null;
             lastDirection=null;
-            lastDistance=0;
+            maxDistance=0;
             SmartBlockPlacementClient.tickPlacement=0;
         }
     }
@@ -62,12 +66,19 @@ public abstract class GameRendererMixin{
         if (minecraft.hitResult instanceof BlockHitResult result) {
             if (blockHitEquals(lastBlockHit, result)) return false;
             if (lastDirectionPos!=null&&lastDirectionPos.equals(result.getBlockPos())) {
-                if (lastDirection == null) lastDirection = result.getDirection();
                 assert minecraft.player != null;
+                if (lastDirection == null) {
+                    lastDirection = result.getDirection();
+                    return false;
+                }
                 if (lastDirection == result.getDirection()) {
-                    return (result.getBlockPos().getCenter().distanceTo(minecraft.player.getEyePosition()) - lastDistance >= 0.8);
+                    return (lastHitPos.distanceToSqr(minecraft.player.getEyePosition())  > maxDistance);
                 }
             }
+            else {
+                return true;
+            }
+            return false;
         }
         return true;
     }
@@ -82,8 +93,9 @@ public abstract class GameRendererMixin{
         assert minecraft.player != null;
         if (minecraft.hitResult instanceof BlockHitResult result) {
             lastBlockHit=result;
+            lastHitPos=result.getBlockPos().getCenter();
             lastDirectionPos = result.getBlockPos().relative(result.getDirection());
-            lastDistance =Math.min(minecraft.player.getEyePosition().distanceTo(lastDirectionPos.getCenter()),4);
+            if(maxDistance==0)maxDistance=Math.max(lastHitPos.distanceToSqr(minecraft.player.getEyePosition())+1.5,1);
             lastDirection=null;
         }
     }
