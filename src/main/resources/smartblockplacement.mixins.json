@@ -6,12 +6,11 @@
   "client": [
     "GameRendererMixin",
     "MinecraftAccessor",
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "BlockItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": [
-    "BlockItemMixin"
-  ]
+  "mixins": []
 }
