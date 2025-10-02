@@ -1,0 +1,9 @@
+{
+  "key.category.smartblockplacement.main": "智能方块放置",
+  "key.smartblockplacement.switch_smart_placement": "启用智能放置",
+  "text.smartblockplacement.enabled_smart_placement": "智能方块放置：%1$s",
+  "text.smartblockplacement.true": "已启用",
+  "text.smartblockplacement.false": "已禁用",
+  "modmenu.summaryTranslation.smartblockplacement": "快速且智能的方块放置。",
+  "modmenu.descriptionTranslation.smartblockplacement": "一个客户端模组，添加了快速放置方块的功能，但以更智能的方式实现。"
+}

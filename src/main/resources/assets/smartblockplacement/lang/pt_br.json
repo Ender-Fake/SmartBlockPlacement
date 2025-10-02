@@ -1,0 +1,9 @@
+{
+  "key.category.smartblockplacement.main": "Intelligentes Blockplatzieren",
+  "key.smartblockplacement.switch_smart_placement": "Intelligentes Platzieren aktivieren",
+  "text.smartblockplacement.enabled_smart_placement": "Intelligentes Blockplatzieren: %1$s",
+  "text.smartblockplacement.true": "Aktiviert",
+  "text.smartblockplacement.false": "Deaktiviert",
+  "modmenu.summaryTranslation.smartblockplacement": "Schnelles und intelligentes Blockplatzieren.",
+  "modmenu.descriptionTranslation.smartblockplacement": "Ein Client-Mod, der eine schnelle Blockplatzierungsfunktion hinzufügt, diese aber intelligent umsetzt."
+}
