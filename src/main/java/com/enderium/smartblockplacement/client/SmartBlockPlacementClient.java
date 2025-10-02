@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -21,10 +22,11 @@ import java.io.IOException;
 public class SmartBlockPlacementClient implements ClientModInitializer {
     private static SmartBlockPlacementClient INSTANCE;
     public static long pluginTick = 0;
-    private static final String modid = "smartblockplacement";
+    public static final String MODID = "smartblockplacement";
     private static File fileConfigDir;
     public boolean enabledSmartPlacement = false;
     public static int tickPlacement = 0;
+    public static final KeyMapping.Category MainCategory = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(MODID,"main"));
     //private HashMap<Long, Queue<Runnable>> executorMap = new HashMap<>();
 
     /*public void addExecutor(Runnable runnable){
@@ -39,10 +41,10 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     @Override
     public void onInitializeClient () {
         INSTANCE = this;
-        fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(modid+".json").toFile();
+        fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(MODID +".json").toFile();
         enabledSmartPlacement=getEnabledSmartPlacement();
 
-        KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+modid+".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT,"category."+modid+".name" ));
+        KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+ MODID +".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, MainCategory));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             pluginTick++;
             if (tickPlacement>0) tickPlacement--;
@@ -71,11 +73,11 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     }
 
 
-    public static SmartBlockPlacementClient getInstance () {
+    public static SmartBlockPlacementClient getInstance() {
         return INSTANCE;
     }
     public static String getModId () {
-        return modid;
+        return MODID;
     }
 
     public static File getFileConfigDir () {

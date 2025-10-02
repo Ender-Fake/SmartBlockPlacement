@@ -1,5 +1,5 @@
 {
-  "category.smartblockplacement.name": "Smart Block Placement",
+  "key.category.smartblockplacement.main": "Smart Block Placement",
   "key.smartblockplacement.switch_smart_placement": "Enable Smart Placement",
   "text.smartblockplacement.enabled_smart_placement": "Smart Block Placement: %1$s",
   "text.smartblockplacement.true": "Enabled",

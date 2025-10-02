@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin{
 
     @Shadow @Final
-    Minecraft minecraft;
+    private Minecraft minecraft;
 
     @Shadow public abstract void render(DeltaTracker deltaTracker, boolean bl);
 
