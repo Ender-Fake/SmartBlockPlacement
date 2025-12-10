@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     private static File fileConfigDir;
     public boolean enabledSmartPlacement = false;
     public static int tickPlacement = 0;
-    public static final KeyMapping.Category MainCategory = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(MODID,"main"));
+    public static final KeyMapping.Category MainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID,"main"));
     //private HashMap<Long, Queue<Runnable>> executorMap = new HashMap<>();
 
     /*public void addExecutor(Runnable runnable){
@@ -41,6 +41,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     @Override
     public void onInitializeClient () {
         INSTANCE = this;
+
         fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(MODID +".json").toFile();
         enabledSmartPlacement=getEnabledSmartPlacement();
 
