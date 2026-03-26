@@ -7,7 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
@@ -45,7 +45,8 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
         fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(MODID +".json").toFile();
         enabledSmartPlacement=getEnabledSmartPlacement();
 
-        KeyMapping binding = KeyBindingHelper.registerKeyBinding(new KeyMapping("key."+ MODID +".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, MainCategory));
+
+        KeyMapping binding = KeyMappingHelper.registerKeyMapping(new KeyMapping("key."+ MODID +".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, MainCategory));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             pluginTick++;
             if (tickPlacement>0) tickPlacement--;
