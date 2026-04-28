@@ -1,9 +1,23 @@
 {
-  "key.category.smartblockplacement.main": "Intelligentes Blockplatzieren",
-  "key.smartblockplacement.switch_smart_placement": "Intelligentes Platzieren aktivieren",
-  "text.smartblockplacement.enabled_smart_placement": "Intelligentes Blockplatzieren: %1$s",
-  "text.smartblockplacement.true": "Aktiviert",
-  "text.smartblockplacement.false": "Deaktiviert",
-  "modmenu.summaryTranslation.smartblockplacement": "Schnelles und intelligentes Blockplatzieren.",
-  "modmenu.descriptionTranslation.smartblockplacement": "Ein Client-Mod, der eine schnelle Blockplatzierungsfunktion hinzufügt, diese aber intelligent umsetzt."
+  "key.category.smartblockplacement.main": "Colocação Inteligente de Blocos",
+  "key.smartblockplacement.switch_smart_placement": "Ativar Colocação Inteligente",
+  "text.smartblockplacement.enabled_smart_placement": "Colocação Inteligente de Blocos: %1$s",
+  "text.smartblockplacement.true": "Ativado",
+  "text.smartblockplacement.false": "Desativado",
+  "modmenu.summaryTranslation.smartblockplacement": "Colocação de blocos rápida e inteligente.",
+  "modmenu.descriptionTranslation.smartblockplacement": "Um mod cliente que adiciona uma função de colocação rápida de blocos, mas de forma inteligente.",
+
+
+  "text.smartblockplacement.config_menu.title": "Geral",
+  "text.smartblockplacement.config_menu.values.fast_place": "Colocação Inteligente",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "Cuidado, não é permitido na maioria dos servidores",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "Ativado",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "Desativado",
+  "text.smartblockplacement.config_menu.values.creative_only": "Apenas no Modo Criativo",
+  "text.smartblockplacement.config_menu.values.place_delay": "Atraso de Uso",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "Ticks: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "Controla o atraso vanilla ao usar itens e interagir com blocos (alavancas, portas, etc.)",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "Cuidado, não é permitido na maioria dos servidores",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "Não salvo ao sair"
+
 }
