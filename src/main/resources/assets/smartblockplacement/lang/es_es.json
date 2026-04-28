@@ -5,5 +5,18 @@
   "text.smartblockplacement.true": "Activado",
   "text.smartblockplacement.false": "Desactivado",
   "modmenu.summaryTranslation.smartblockplacement": "Colocación rápida e inteligente de bloques.",
-  "modmenu.descriptionTranslation.smartblockplacement": "Un mod cliente que añade una función de colocación rápida de bloques, pero de forma inteligente."
+  "modmenu.descriptionTranslation.smartblockplacement": "Un mod cliente que añade una función de colocación rápida de bloques, pero de forma inteligente.",
+
+  "text.smartblockplacement.config_menu.title": "General",
+  "text.smartblockplacement.config_menu.values.fast_place": "Colocación Inteligente",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "Ten cuidado, no está permitido en la mayoría de los servidores",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "Activado",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "Desactivado",
+  "text.smartblockplacement.config_menu.values.creative_only": "Solo en modo Creativo",
+  "text.smartblockplacement.config_menu.values.place_delay": "Retraso de Uso",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "Ticks: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "Controla el retraso vanilla al usar objetos e interactuar con bloques (palancas, puertas, etc.)",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "Ten cuidado, no está permitido en la mayoría de los servidores",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "No se guarda al salir"
+
 }

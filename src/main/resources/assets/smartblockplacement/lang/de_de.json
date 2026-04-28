@@ -5,5 +5,19 @@
   "text.smartblockplacement.true": "Aktiviert",
   "text.smartblockplacement.false": "Deaktiviert",
   "modmenu.summaryTranslation.smartblockplacement": "Schnelles und intelligentes Blockplatzieren.",
-  "modmenu.descriptionTranslation.smartblockplacement": "Ein Client-Mod, der eine schnelle Blockplatzierungsfunktion hinzufügt, diese aber intelligent umsetzt."
+  "modmenu.descriptionTranslation.smartblockplacement": "Ein Client-Mod, der eine schnelle Blockplatzierungsfunktion hinzufügt, diese aber intelligent umsetzt.",
+
+  "text.smartblockplacement.config_menu.title": "Allgemein",
+  "text.smartblockplacement.config_menu.values.fast_place": "Intelligente Platzierung",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "Vorsicht, dies ist auf vielen Servern nicht erlaubt",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "Aktiviert",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "Deaktiviert",
+  "text.smartblockplacement.config_menu.values.creative_only": "Nur im Kreativmodus",
+  "text.smartblockplacement.config_menu.values.place_delay": "Nutzungsverzögerung",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "Ticks: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "Steuert die Vanilla-Verzögerung bei der Nutzung von Gegenständen und der Interaktion mit Blöcken (Hebel, Türen usw.)",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "Vorsicht, dies ist auf den meisten Servern nicht erlaubt",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "Wird nach dem Beenden nicht gespeichert"
+
+
 }

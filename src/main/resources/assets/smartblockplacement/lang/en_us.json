@@ -5,5 +5,19 @@
   "text.smartblockplacement.true": "Enabled",
   "text.smartblockplacement.false": "Disabled",
   "modmenu.summaryTranslation.smartblockplacement": "Fast and smart block placement.",
-  "modmenu.descriptionTranslation.smartblockplacement": "A client mod that adds a quick block placement feature, but does it smartly."
+  "modmenu.descriptionTranslation.smartblockplacement": "A client mod that adds a quick block placement feature, but does it smartly.",
+
+  "text.smartblockplacement.config_menu.title": "General",
+  "text.smartblockplacement.config_menu.values.fast_place": "Smart Placement",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "Be careful, this is illegal on many servers",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "Enabled",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "Disabled",
+  "text.smartblockplacement.config_menu.values.creative_only": "Creative Mode Only",
+  "text.smartblockplacement.config_menu.values.place_delay": "Usage Delay",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "Ticks: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "Controls the vanilla delay for using items and interacting with blocks (levers, doors, etc.)",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "Be careful, this is illegal on most servers",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "Not saved after exit"
+
+
 }

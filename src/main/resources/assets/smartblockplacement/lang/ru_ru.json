@@ -5,5 +5,17 @@
   "text.smartblockplacement.true": "Включено",
   "text.smartblockplacement.false": "Выключено",
   "modmenu.summaryTranslation.smartblockplacement": "Быстрое и умное размещение блоков.",
-  "modmenu.descriptionTranslation.smartblockplacement": "Клиентский мод, добавляющий функцию быстрого размещения блоков, но делает это умно."
+  "modmenu.descriptionTranslation.smartblockplacement": "Клиентский мод, добавляющий функцию быстрого размещения блоков, но делает это умно.",
+
+  "text.smartblockplacement.config_menu.title": "Основное",
+  "text.smartblockplacement.config_menu.values.fast_place": "Умное размещение",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "Будьте осторожны, это не легально использовать на многих серверах",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "Включено",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "Выключено",
+  "text.smartblockplacement.config_menu.values.creative_only": "Только в творческом режиме",
+  "text.smartblockplacement.config_menu.values.place_delay": "Задержка использования",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "Тиков: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "Отвечает за ванильную задержу использования предметов и блоков (рычаг, дверь...)",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "Будьте осторожны, это не легально использовать на большинстве серверов",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "Не сохраняется после выхода"
 }

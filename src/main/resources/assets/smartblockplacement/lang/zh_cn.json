@@ -5,5 +5,17 @@
   "text.smartblockplacement.true": "已启用",
   "text.smartblockplacement.false": "已禁用",
   "modmenu.summaryTranslation.smartblockplacement": "快速且智能的方块放置。",
-  "modmenu.descriptionTranslation.smartblockplacement": "一个客户端模组，添加了快速放置方块的功能，但以更智能的方式实现。"
+  "modmenu.descriptionTranslation.smartblockplacement": "一个客户端模组，添加了快速放置方块的功能，但以更智能的方式实现。",
+
+  "text.smartblockplacement.config_menu.title": "常规",
+  "text.smartblockplacement.config_menu.values.fast_place": "智能放置",
+  "text.smartblockplacement.config_menu.values.fast_place.tooltip_warning": "小心，大多数服务器不允许此功能",
+  "text.smartblockplacement.config_menu.values.fast_place.enabled": "已启用",
+  "text.smartblockplacement.config_menu.values.fast_place.disabled": "已禁用",
+  "text.smartblockplacement.config_menu.values.creative_only": "仅创造模式",
+  "text.smartblockplacement.config_menu.values.place_delay": "使用延迟",
+  "text.smartblockplacement.config_menu.values.place_delay.value": "刻: %1$s",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip": "控制使用物品和与方块交互（拉杆、门等）的原版延迟",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_warning": "小心，大多数服务器不允许此功能",
+  "text.smartblockplacement.config_menu.values.place_delay.tooltip_save": "退出后不保存"
 }
