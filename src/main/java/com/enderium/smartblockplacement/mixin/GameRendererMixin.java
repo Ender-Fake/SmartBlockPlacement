@@ -37,7 +37,7 @@ public abstract class GameRendererMixin{
 
     @Inject(method = "render", at = @At("TAIL"))
     public void tickUse(CallbackInfo ci){
-        if (!SmartBlockPlacementClient.getEnabledSmartPlacement())return;
+        if (!SmartBlockPlacementClient.getInstance().enabledSmartPlacement)return;
         if (minecraft.player==null)return;
         if (minecraft.options.keyUse.isDown()&&!minecraft.player.isUsingItem()){
             if (SmartBlockPlacementClient.tickPlacement==0&&checkValues()) {
@@ -71,17 +71,15 @@ public abstract class GameRendererMixin{
                     lastDirection = result.getDirection();
                     return false;
                 }
-                if (lastDirection == result.getDirection()) {
-                    return (lastHitPos.distanceToSqr(minecraft.player.getEyePosition())  > maxDistance);
-                }
+                if (lastDirection == result.getDirection())
+                    return (lastHitPos.distanceToSqr(minecraft.player.getEyePosition()) > maxDistance);
             }
-            else {
-                return true;
-            }
+            else return true;
             return false;
         }
         return true;
     }
+
     @Unique
     private static boolean blockHitEquals(BlockHitResult a, BlockHitResult b){
         if (a==null||b==null)return false;
