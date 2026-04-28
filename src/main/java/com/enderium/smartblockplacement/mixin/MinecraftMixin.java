@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftMixin {
     @Inject(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;startUseItem()V"), cancellable = true)
     public void cancelUse(CallbackInfo ci){
-        if (!SmartBlockPlacementClient.getEnabledSmartPlacement())return;
+        if (!SmartBlockPlacementClient.getInstance().enabledSmartPlacement)return;
         ci.cancel();
     }
 }
