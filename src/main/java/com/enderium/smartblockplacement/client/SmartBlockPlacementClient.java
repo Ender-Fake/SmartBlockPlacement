@@ -1,76 +1,50 @@
 package com.enderium.smartblockplacement.client;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.enderium.smartblockplacement.config.SmartBlockPlacementConfig;
+import com.enderium.smartblockplacement.config.SmartBlockPlacementConfig.Values;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
 import org.lwjgl.glfw.GLFW;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.*;
+
+import static com.enderium.smartblockplacement.data.FastPlaceData.tickPlacement;
 
 public class SmartBlockPlacementClient implements ClientModInitializer {
     private static SmartBlockPlacementClient INSTANCE;
-    public static long pluginTick = 0;
-    public static final String MODID = "smartblockplacement";
-    private static File fileConfigDir;
-    public boolean enabledSmartPlacement = false;
-    public static int tickPlacement = 0;
-    public static final KeyMapping.Category MainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID,"main"));
-    //private HashMap<Long, Queue<Runnable>> executorMap = new HashMap<>();
 
-    /*public void addExecutor(Runnable runnable){
-        addExecutor(0,runnable);
-    }
-    public void addExecutor(long tick,Runnable runnable){
-        tick+=pluginTick;
-        executorMap.putIfAbsent(tick, new ConcurrentLinkedQueue<>());
-        executorMap.get(tick).add(runnable);
-    }*/
+    public static final String MODID = "smartblockplacement";
+    public static final MutableComponent LABEL = Component.literal("[SmartBlockPlacement]").withColor(ModColors.GREEN_MOD_COLOR);
+
+
+    public static final KeyMapping.Category mainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID, "main"));
+    public static final KeyMapping smartPlacementKey = new KeyMapping("key.smartblockplacement.switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, mainCategory);
+
 
     @Override
-    public void onInitializeClient () {
+    public void onInitializeClient() {
         INSTANCE = this;
 
-        fileConfigDir=FabricLoader.getInstance().getConfigDir().resolve(MODID +".json").toFile();
-        enabledSmartPlacement=getEnabledSmartPlacement();
+        SmartBlockPlacementConfig.load();
 
 
-        KeyMapping binding = KeyMappingHelper.registerKeyMapping(new KeyMapping("key."+ MODID +".switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, MainCategory));
+        KeyMapping binding = KeyMappingHelper.registerKeyMapping(smartPlacementKey);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            pluginTick++;
-            if (tickPlacement>0) tickPlacement--;
+            if (tickPlacement > 0) tickPlacement--;
             if (binding.consumeClick()) {
-                enabledSmartPlacement = !enabledSmartPlacement;
-
-
-                client.gui.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement",Component.translatable("text.smartblockplacement."+enabledSmartPlacement)), false);
-                setEnabledSmartPlacement(enabledSmartPlacement);
+                Values.fastPlaceEnabled = !Values.fastPlaceEnabled;
+                client.gui.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement", Component.translatable("text.smartblockplacement." + Values.fastPlaceEnabled).withColor(Values.fastPlaceEnabled ? ModColors.GREEN_MOD_COLOR : ModColors.RED_MOD_COLOR)).withColor(ModColors.WHITE_MOD_COLOR), false);
+                SmartBlockPlacementConfig.save();
             }
-            /*if (enabledSmartPlacement){
-                executorMap.keySet().stream().sorted().forEach(tick -> {
-                    if (tick<=pluginTick) {
-                        Queue<Runnable> queue=executorMap.remove(tick);
-                        if (queue != null){
-                            while (!queue.isEmpty()) {
-                                queue.poll().run();
-                            }
-                        };
-
-                    }
-                });
-
-            }*/
         });
     }
 
@@ -78,38 +52,31 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     public static SmartBlockPlacementClient getInstance() {
         return INSTANCE;
     }
-    public static String getModId () {
-        return MODID;
+
+
+    public static void sendLiteralToPlayer(DebugType type, String msg) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null) return;
+        if (type == null) player.sendSystemMessage(LABEL.append(" ").append(Component.literal(msg)));
+        else
+            player.sendSystemMessage(LABEL.withColor(type.color).append(" ").append(Component.literal(msg)).withColor(type.color));
     }
 
-    public static File getFileConfigDir () {
-        return fileConfigDir;
+    public enum DebugType {
+        INFO(new Color(211, 255, 198).getRGB()),
+        WARNING(DyeColor.YELLOW),
+        ERROR(DyeColor.RED);
+
+        public final int color;
+
+        DebugType(DyeColor color) {
+            this.color = color.getTextColor();
+        }
+
+        DebugType(int color) {
+            this.color = color;
+        }
+
     }
 
-    public static void setEnabledSmartPlacement(boolean enable) {
-        if (!fileConfigDir.exists()) {
-            try {
-                fileConfigDir.createNewFile();
-            } catch (IOException e) {
-                return;
-            }
-        }
-        try {
-            JsonWriter writer1=new JsonWriter(new FileWriter(fileConfigDir));
-            writer1.jsonValue("{\"enabled\":"+enable+"}");
-            writer1.flush();
-            writer1.close();
-        } catch (IOException ignored) {
-
-        }
-    }
-    public static boolean getEnabledSmartPlacement() {
-        try (JsonReader reader = new JsonReader(new FileReader(fileConfigDir))) {
-            JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
-            reader.close();
-            return obj.has("enabled") && obj.get("enabled").getAsBoolean();
-        } catch (IOException ignored) {
-            return false;
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package com.enderium.smartblockplacement.mixin;
 
-import com.enderium.smartblockplacement.client.SmartBlockPlacementClient;
+import com.enderium.smartblockplacement.data.FastPlaceData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -14,8 +15,8 @@ public class BlockItemMixin {
 
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BlockItem;place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;"))
-    public void use(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir){
-        //if (cir.getReturnValue().consumesAction())
-        SmartBlockPlacementClient.tickPlacement = 0;
+    public void use(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
+        if (Minecraft.getInstance().player != useOnContext.getPlayer()) return;
+        FastPlaceData.tickPlacement = 0;
     }
 }

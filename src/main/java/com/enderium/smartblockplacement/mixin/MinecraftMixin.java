@@ -1,6 +1,6 @@
 package com.enderium.smartblockplacement.mixin;
 
-import com.enderium.smartblockplacement.client.SmartBlockPlacementClient;
+import com.enderium.smartblockplacement.data.FastPlaceData;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
     @Inject(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;startUseItem()V"), cancellable = true)
-    public void cancelUse(CallbackInfo ci){
-        if (!SmartBlockPlacementClient.getInstance().enabledSmartPlacement)return;
+    public void cancelUse(CallbackInfo ci) {
+        if (!FastPlaceData.isEnabled()) return;
         ci.cancel();
     }
 }

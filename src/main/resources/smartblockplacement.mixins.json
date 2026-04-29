@@ -7,7 +7,8 @@
     "GameRendererMixin",
     "MinecraftAccessor",
     "MinecraftMixin",
-    "BlockItemMixin"
+    "BlockItemMixin",
+    "MultiPlayerGameModeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
