@@ -15,7 +15,7 @@ public abstract class GameRendererMixin {
 
     @Shadow
     @Final
-    private Minecraft minecraft;
+    Minecraft minecraft;
 
 
     @Inject(method = "render", at = @At("TAIL"))
