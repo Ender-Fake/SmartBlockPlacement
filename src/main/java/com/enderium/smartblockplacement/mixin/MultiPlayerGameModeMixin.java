@@ -19,8 +19,8 @@ public class MultiPlayerGameModeMixin {
 
 
     @Inject(method = "performUseItemOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/InteractionResult;consumesAction()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;useWithoutItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;")))
-    public void useBlock(LocalPlayer player, InteractionHand hand, BlockHitResult blockHit, CallbackInfoReturnable<InteractionResult> cir, @Local() InteractionResult interactionResult) {
-        if (Minecraft.getInstance().player == player) FastPlaceData.lastUseBlock = interactionResult.consumesAction();
+    public void useBlock(LocalPlayer player, InteractionHand hand, BlockHitResult blockHit, CallbackInfoReturnable<InteractionResult> cir, @Local(name = "use") InteractionResult use) {
+        if (Minecraft.getInstance().player == player) FastPlaceData.lastUseBlock = use.consumesAction();
     }
 
 }
