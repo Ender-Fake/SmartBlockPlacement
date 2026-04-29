@@ -1,27 +1,24 @@
-# Smart Block Placement
-![Mod Showcase](icon-0.5x.png)
+![Mod Showcase](LabelMod.gif "# Smart Block Placement")
 
-[Fabric API](https://modrinth.com/mod/fabric-api) is required.
+[Fabric API](https://modrinth.com/mod/fabric-api) is required.\
+[Mod Menu](https://modrinth.com/mod/modmenu) and [Cloth Config API](https://modrinth.com/mod/cloth-config) are optional.
 
 [Modrinth](https://modrinth.com/mod/smartblockplacement)
 [CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/smartblockplacement)
 
->EN_US:
 
-In vanilla Minecraft, if you hold the right mouse button on blocks you place slowly, this mod solves this problem.\
-With it, you can not only quickly place blocks, but also eliminate unnecessary actions
+In vanilla Minecraft, holding the right mouse button to place blocks results in a slow placement speed due to animation delays. **Smart Block Placement** solves this problem.\
+With this mod, you can not only place blocks rapidly but also streamline your interactions by removing unnecessary delays.
 
-P.S If you don't understand why the mod isn't working, check if you have the button installed in your control settings.
+### **Key Features:**
 
-**[WARNING]** On servers, some Anti-Cheat may complain about fast placement of blocks
-
->RU_RU
-
-В ванильном Майнкрафте, если удерживать правую кнопку мыши на блоках, вы размещаете медленно, этот мод решает эту проблему.\
-C помощью него вы не просто можете быстро ставить блоки устраняя лишние действия.
-
-P.S. Если вы не понимаете, почему мод не работает, проверьте, установлена ли у вас кнопка в настройках управления.
-
-**[ПРЕДУПРЕЖДЕНИЕ]** На серверах некоторые Анти-Чит может жаловаться за быстрое размещение блоков
+- **Fast Building** – Place blocks as fast as you can click, bypassing the vanilla placement delay. Perfect for rapid construction and editing.
+- **Creative Mode Only** – Toggle this option if you want to use the mod exclusively in Creative mode, ensuring fair play on Survival servers.
+- **Customizable Usage Delay** – Control the vanilla delay for interacting with blocks and using items (levers, doors, food, etc.).
 
 ![Preview](preview.gif)
+
+> **[WARNING]** On multiplayer servers, some Anti-Cheat plugins may flag rapid block placement or reduced usage delays as suspicious. Use with caution and respect server rules.
+
+> **P.S.** If the mod doesn't seem to be working, please check your **Controls** settings to ensure the "Enable Smart Placement" key is bound.
+
