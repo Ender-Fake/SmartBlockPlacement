@@ -22,11 +22,11 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric-api": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_multi_version}"
   },
   "suggests": {
-    "cloth-config": ">=26.1.154",
-    "modmenu": ">=18.0.0-alpha.8"
+    "cloth-config": ">=15.0.140",
+    "modmenu": ">=11.0.4"
   }
 }

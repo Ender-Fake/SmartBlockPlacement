@@ -5,13 +5,12 @@ import com.enderium.smartblockplacement.config.SmartBlockPlacementConfig.Values;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import org.lwjgl.glfw.GLFW;
 
@@ -26,7 +25,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
     public static final MutableComponent LABEL = Component.literal("[SmartBlockPlacement]").withColor(ModColors.GREEN_MOD_COLOR);
 
 
-    public static final KeyMapping.Category mainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID, "main"));
+    public static final String mainCategory = "category.smartblockplacement.main";
     public static final KeyMapping smartPlacementKey = new KeyMapping("key.smartblockplacement.switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, mainCategory);
 
 
@@ -37,7 +36,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
         SmartBlockPlacementConfig.load();
 
 
-        KeyMapping binding = KeyMappingHelper.registerKeyMapping(smartPlacementKey);
+        KeyMapping binding = KeyBindingHelper.registerKeyBinding(smartPlacementKey);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (tickPlacement > 0) tickPlacement--;
             if (binding.consumeClick()) {
