@@ -2,6 +2,7 @@ package com.enderium.smartblockplacement.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
+import com.terraformersmc.modmenu.util.NullScreenFactory;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class ModMenuEntrypoint implements ModMenuApi {
@@ -12,7 +13,7 @@ public class ModMenuEntrypoint implements ModMenuApi {
         if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
             return SmartBlockPlacementConfigScreen::createScreen;
         } else {
-            return ModMenuApi.super.getModConfigScreenFactory();
+            return new NullScreenFactory<>();
         }
     }
 }
