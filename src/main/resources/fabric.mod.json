@@ -14,7 +14,8 @@
   "entrypoints": {
     "client": [
       "com.enderium.smartblockplacement.client.SmartBlockPlacementClient"
-    ]
+    ],
+    "modmenu": ["com.enderium.smartblockplacement.config.ModMenuEntrypoint"]
   },
   "mixins": [
     "smartblockplacement.mixins.json"
@@ -23,5 +24,9 @@
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_multi_version}"
+  },
+  "suggests": {
+    "cloth-config": ">=26.1.154",
+    "modmenu": ">=18.0.0-alpha.8"
   }
 }
