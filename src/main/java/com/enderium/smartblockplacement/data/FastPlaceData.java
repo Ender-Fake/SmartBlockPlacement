@@ -61,7 +61,7 @@ public class FastPlaceData {
         isStart = true;
         if (MC.hitResult instanceof BlockHitResult result) {
             lastBlockHit = result;
-            lastHitPos = result.getBlockPos().getCenter();
+            lastHitPos = Vec3.atCenterOf(result.getBlockPos());
             lastDirectionPos = result.getBlockPos().relative(result.getDirection());
             if (maxDistance == 0)
                 maxDistance = Math.max(lastHitPos.distanceToSqr(MC.player.getEyePosition()) + 1.5, 1);

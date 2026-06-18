@@ -42,7 +42,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
             if (tickPlacement > 0) tickPlacement--;
             if (binding.consumeClick()) {
                 Values.fastPlaceEnabled = !Values.fastPlaceEnabled;
-                client.gui.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement", Component.translatable("text.smartblockplacement." + Values.fastPlaceEnabled).withColor(Values.fastPlaceEnabled ? ModColors.GREEN_MOD_COLOR : ModColors.RED_MOD_COLOR)).withColor(ModColors.WHITE_MOD_COLOR), false);
+                client.gui.hud.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement", Component.translatable("text.smartblockplacement." + Values.fastPlaceEnabled).withColor(Values.fastPlaceEnabled ? ModColors.GREEN_MOD_COLOR : ModColors.RED_MOD_COLOR)).withColor(ModColors.WHITE_MOD_COLOR), false);
                 SmartBlockPlacementConfig.save();
             }
         });
