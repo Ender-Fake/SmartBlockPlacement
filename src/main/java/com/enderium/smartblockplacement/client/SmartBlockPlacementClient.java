@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
-import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
@@ -27,7 +26,7 @@ public class SmartBlockPlacementClient implements ClientModInitializer {
 
 
     public static final KeyMapping.Category mainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID, "main"));
-    public static final KeyMapping smartPlacementKey = new KeyMapping("key.smartblockplacement.switch_smart_placement", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, mainCategory);
+    public static final KeyMapping smartPlacementKey = new KeyMapping("key.smartblockplacement.switch_smart_placement", InputConstants.KEY_GRAVE, mainCategory);
 
 
     @Override
