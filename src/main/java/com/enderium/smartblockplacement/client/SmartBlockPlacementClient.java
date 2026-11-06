@@ -1,64 +1,69 @@
 package com.enderium.smartblockplacement.client;
 
+import com.enderium.smartblockplacement.SmartBlockPlacementCommon;
 import com.enderium.smartblockplacement.config.SmartBlockPlacementConfig;
 import com.enderium.smartblockplacement.config.SmartBlockPlacementConfig.Values;
 import com.mojang.blaze3d.platform.InputConstants;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 
 import java.awt.*;
 
+import static com.enderium.smartblockplacement.SmartBlockPlacementCommon.LABEL;
 import static com.enderium.smartblockplacement.data.FastPlaceData.tickPlacement;
+import static com.enderium.smartblockplacement.util.ComponentUtils.withColor;
 
-public class SmartBlockPlacementClient implements ClientModInitializer {
-    private static SmartBlockPlacementClient INSTANCE;
-
-    public static final String MODID = "smartblockplacement";
-    public static final MutableComponent LABEL = Component.literal("[SmartBlockPlacement]").withColor(ModColors.GREEN_MOD_COLOR);
+public class SmartBlockPlacementClient {
 
 
-    public static final KeyMapping.Category mainCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MODID, "main"));
+
+
+    //? if >=1.21.11 {
+    public static final KeyMapping.Category mainCategory = KeyMapping.Category.register(SmartBlockPlacementCommon.modId("main"));
+    //?} else
+    //public static final String mainCategory = "category.smartblockplacement.main";
+
     public static final KeyMapping smartPlacementKey = new KeyMapping("key.smartblockplacement.switch_smart_placement", InputConstants.KEY_GRAVE, mainCategory);
 
 
-    @Override
-    public void onInitializeClient() {
-        INSTANCE = this;
-
+    public static void init(){
         SmartBlockPlacementConfig.load();
 
-
-        KeyMapping binding = KeyMappingHelper.registerKeyMapping(smartPlacementKey);
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (tickPlacement > 0) tickPlacement--;
-            if (binding.consumeClick()) {
-                Values.fastPlaceEnabled = !Values.fastPlaceEnabled;
-                client.gui.hud.setOverlayMessage(Component.translatable("text.smartblockplacement.enabled_smart_placement", Component.translatable("text.smartblockplacement." + Values.fastPlaceEnabled).withColor(Values.fastPlaceEnabled ? ModColors.GREEN_MOD_COLOR : ModColors.RED_MOD_COLOR)).withColor(ModColors.WHITE_MOD_COLOR), false);
-                SmartBlockPlacementConfig.save();
-            }
-        });
     }
 
 
-    public static SmartBlockPlacementClient getInstance() {
-        return INSTANCE;
+
+
+    public static void clientTick(Minecraft client){
+        if (tickPlacement > 0) tickPlacement--;
+        if (smartPlacementKey.consumeClick()) {
+            Values.fastPlaceEnabled = !Values.fastPlaceEnabled;
+
+            MutableComponent enableComponent=withColor(Component.translatable("text.smartblockplacement." + Values.fastPlaceEnabled),Values.fastPlaceEnabled ? ModColors.GREEN_MOD_COLOR : ModColors.RED_MOD_COLOR);
+            MutableComponent component = withColor(Component.translatable("text.smartblockplacement.enabled_smart_placement", enableComponent),ModColors.WHITE_MOD_COLOR);
+            //? if >=26.2 {
+            client.gui.hud.setOverlayMessage(component, false);
+            //?} else
+            //client.gui.setOverlayMessage(component, false);
+            SmartBlockPlacementConfig.save();
+        }
     }
 
 
     public static void sendLiteralToPlayer(DebugType type, String msg) {
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player == null) return;
-        if (type == null) player.sendSystemMessage(LABEL.append(" ").append(Component.literal(msg)));
+        ChatListener listener;
+        //? if >=26.2 {
+        listener = Minecraft.getInstance().gui.chatListener();
+        //?} else
+        //listener = Minecraft.getInstance().getChatListener();
+
+        if (type == null) listener.handleSystemMessage(LABEL.append(" ").append(Component.literal(msg)),false);
         else
-            player.sendSystemMessage(LABEL.withColor(type.color).append(" ").append(Component.literal(msg)).withColor(type.color));
+            listener.handleSystemMessage(withColor(withColor(LABEL,type.color).append(" ").append(Component.literal(msg)),type.color), false);
     }
 
     public enum DebugType {

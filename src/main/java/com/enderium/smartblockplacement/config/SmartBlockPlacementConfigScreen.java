@@ -12,6 +12,8 @@ import net.minecraft.client.gui.screens.Screen;
 
 import java.awt.*;
 
+import static com.enderium.smartblockplacement.util.ComponentUtils.withColor;
+
 public class SmartBlockPlacementConfigScreen {
 
     public static class Text {
@@ -48,8 +50,8 @@ public class SmartBlockPlacementConfigScreen {
 
 
         general.addEntry(entryBuilder.startBooleanToggle(Text.FAST_PLACE.get(), Values.fastPlaceEnabled).setDefaultValue(Defaults.ENABLED_VALUE)
-                .setTooltip(Text.FAST_PLACE_TOOLTIP_WARNING.get().withColor(DARKNESS_RED_COLOR))
-                .setYesNoTextSupplier(isActive -> isActive ? Text.FAST_PLACE_ENABLED.get().withColor(GREEN_COLOR) : Text.FAST_PLACE_DISABLED.get().withColor(RED_COLOR))
+                .setTooltip(withColor(Text.FAST_PLACE_TOOLTIP_WARNING.get(), DARKNESS_RED_COLOR))
+                .setYesNoTextSupplier(isActive -> isActive ? withColor(Text.FAST_PLACE_ENABLED.get(), GREEN_COLOR) : withColor(Text.FAST_PLACE_DISABLED.get(), RED_COLOR))
                 .setSaveConsumer(replace -> Values.fastPlaceEnabled = replace).build());
 
         general.addEntry(entryBuilder.fillKeybindingField(Text.FAST_PLACE_BUTTON.get(), SmartBlockPlacementClient.smartPlacementKey).build());
@@ -60,7 +62,7 @@ public class SmartBlockPlacementConfigScreen {
 
 
         general.addEntry(entryBuilder.startIntSlider(Text.PLACE_DELAY.get(), FastPlaceData.tickPlacementDelay, 1, 10).setDefaultValue(4)
-                .setTooltip(Text.PLACE_DELAY_TOOLTIP.get(), Text.PLACE_DELAY_TOOLTIP_WARNING.get().withColor(DARKNESS_RED_COLOR), Text.PLACE_DELAY_TOOLTIP_SAVE.get().withColor(DARKNESS_YELLOW_COLOR))
+                .setTooltip(Text.PLACE_DELAY_TOOLTIP.get(), withColor(Text.PLACE_DELAY_TOOLTIP_WARNING.get(), DARKNESS_RED_COLOR), withColor(Text.PLACE_DELAY_TOOLTIP_SAVE.get(), DARKNESS_YELLOW_COLOR))
                 .setTextGetter(Text.PLACE_DELAY_VALUE::get).setSaveConsumer(replace -> FastPlaceData.tickPlacementDelay = replace).build());
 
         return builder.build();

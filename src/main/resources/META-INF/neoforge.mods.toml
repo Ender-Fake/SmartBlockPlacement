@@ -1,0 +1,33 @@
+license = "MIT"
+
+modLoader="javafml"
+loaderVersion="[1,)"
+
+[[mods]]
+modId = "${id}"
+displayName = "${name}"
+version = "${version}"
+authors = "Ender_Fake"
+description = "A client mod that adds a quick block placement feature, but does it smartly."
+
+iconFile = "assets/smartblockplacement/icon.png"
+logoFile = "assets/smartblockplacement/icon.png"
+
+displayURL = "https://github.com/Ender-Fake/SmartBlockPlacement"
+issueTrackerURL = "https://github.com/Ender-Fake/SmartBlockPlacement/issues"
+
+[[mixins]]
+config = "smartblockplacement.mixins.json"
+
+[[dependencies.${id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft}"
+ordering = "NONE"
+side = "BOTH"
+
+
+[[dependencies.cloth-config]]
+modId = "cloth-config"
+type = "optional"
+side = "CLIENT"

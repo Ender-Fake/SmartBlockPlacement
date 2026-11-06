@@ -1,19 +1,20 @@
 {
   "schemaVersion": 1,
-  "id": "smartblockplacement",
+  "id": "${id}",
   "version": "${version}",
-  "name": "SmartBlockPlacement",
+  "name": "${name}",
   "description": "A client mod that adds a quick block placement feature, but does it smartly.",
   "authors": ["Ender_Fake"],
   "contact": {
-    "repo": "https://github.com/Ender-Fake/SmartBlockPlacement"
+    "repo": "https://github.com/Ender-Fake/SmartBlockPlacement",
+    "issues": "https://github.com/Ender-Fake/SmartBlockPlacement/issues"
   },
   "license": "MIT",
   "icon": "assets/smartblockplacement/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.enderium.smartblockplacement.client.SmartBlockPlacementClient"
+      "com.enderium.smartblockplacement.client.SmartBlockPlacementClientFabric"
     ],
     "modmenu": ["com.enderium.smartblockplacement.config.ModMenuEntrypoint"]
   },
@@ -21,12 +22,12 @@
     "smartblockplacement.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": ">=${loader}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_multi_version}"
+    "minecraft": "${minecraft}"
   },
   "suggests": {
-    "cloth-config": ">=26.1.154",
-    "modmenu": ">=18.0.0-alpha.8"
+    "cloth-config": "*",
+    "modmenu": "*"
   }
 }

@@ -1,7 +1,7 @@
 package com.enderium.smartblockplacement.config;
 
+import com.enderium.smartblockplacement.ModLoaderAccess;
 import com.enderium.smartblockplacement.client.SmartBlockPlacementClient.DebugType;
-import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
-import static com.enderium.smartblockplacement.client.SmartBlockPlacementClient.MODID;
+import static com.enderium.smartblockplacement.SmartBlockPlacementCommon.MODID;
 import static com.enderium.smartblockplacement.client.SmartBlockPlacementClient.sendLiteralToPlayer;
 
 public class SmartBlockPlacementConfig {
@@ -77,7 +77,7 @@ public class SmartBlockPlacementConfig {
     }
 
     public static Path getConfigPath() {
-        return FabricLoader.getInstance().getConfigDir().resolve(MODID + ".properties");
+        return ModLoaderAccess.INSTANCE.getConfigPath().resolve(MODID + ".properties");
     }
 
 
