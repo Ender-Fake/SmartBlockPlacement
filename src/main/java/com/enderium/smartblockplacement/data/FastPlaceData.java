@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class FastPlaceData {
@@ -24,6 +25,7 @@ public class FastPlaceData {
     private static BlockPos lastDirectionPos;
     private static Direction lastDirection;
     private static double maxDistance = 0;
+    private static boolean missed;
 
 
     public static boolean isEnabled() {
@@ -40,10 +42,14 @@ public class FastPlaceData {
     public static boolean checkValues() {
         LocalPlayer player = MC.player;
         assert player != null;
-        if (FastPlaceData.lastUseBlock) return true;
+        if (lastUseBlock) return true;
         if (!(player.getMainHandItem().getItem() instanceof BlockItem || player.getOffhandItem().getItem() instanceof BlockItem))
             return true;
         if (!(MC.hitResult instanceof BlockHitResult result)) return true;
+        if (result.getType() == HitResult.Type.MISS) {
+            missed = true;
+            return false;
+        }
         if (blockHitEquals(lastBlockHit, result)) return false;
         if (lastDirectionPos == null || !lastDirectionPos.equals(result.getBlockPos())) return true;
         if (lastDirection == null) {
@@ -51,21 +57,35 @@ public class FastPlaceData {
             return false;
         }
         if (lastDirection == result.getDirection())
-            return (lastHitPos.distanceToSqr(player.getEyePosition()) > maxDistance);
+            return (playerDistanceTo(lastHitPos) > maxDistance);
         return false;
     }
 
 
     public static void setPostValues() {
-        assert MC.player != null;
+        LocalPlayer player = MC.player;
+        assert player != null;
         isStart = true;
         if (MC.hitResult instanceof BlockHitResult result) {
             lastBlockHit = result;
-            lastHitPos = Vec3.atCenterOf(result.getBlockPos());
+
+
+            Vec3 hitPos = lastHitPos;
+            lastHitPos = centerVec(result.getLocation());
             lastDirectionPos = result.getBlockPos().relative(result.getDirection());
-            if (maxDistance == 0)
-                maxDistance = Math.max(lastHitPos.distanceToSqr(MC.player.getEyePosition()) + 1.5, 1);
+
+            boolean forceUpdateDistance = false;
+
+            if (missed) forceUpdateDistance = true;
+            else if (hitPos != null) {
+                Vec3 sV = lastHitPos.subtract(hitPos);
+                if ((sV.x + sV.y + sV.z) > 1) forceUpdateDistance = true;
+            }
+
+            if (forceUpdateDistance || maxDistance == 0)
+                maxDistance = Math.max(playerDistanceTo(lastHitPos) + 1.5, 1);
             lastDirection = null;
+            missed=false;
         }
     }
 
@@ -84,6 +104,17 @@ public class FastPlaceData {
     private static boolean blockHitEquals(BlockHitResult a, BlockHitResult b) {
         if (a == null || b == null) return false;
         return a.getBlockPos().equals(b.getBlockPos()) && a.getDirection() == b.getDirection();
+    }
+
+    private static Vec3 centerVec(Vec3 vec) {
+        return new Vec3(Math.floor(vec.x) + 0.5f, Math.floor(vec.y) + 0.5f, Math.floor(vec.z) + 0.5f);
+    }
+
+    private static double playerDistanceTo(Vec3 vec3) {
+        LocalPlayer player = MC.player;
+        assert player != null;
+        vec3 = vec3.subtract(player.getEyePosition().subtract(player.position()));
+        return player.distanceToSqr(vec3);
     }
 
 }
