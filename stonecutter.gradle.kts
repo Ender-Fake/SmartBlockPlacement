@@ -38,3 +38,7 @@ stonecutter parameters {
 
     }
 }
+
+stonecutter tasks {
+    order("publishMods")
+}

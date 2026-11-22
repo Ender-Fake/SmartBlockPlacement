@@ -1,7 +1,15 @@
+import groovy.json.JsonSlurper
+
 plugins {
     id("net.neoforged.moddev") version "2.0.147"
     id("neoforge-mutex")
+    id("me.modmuss50.mod-publish-plugin") version "2.2.1"
 }
+
+val secretsFile = file("publish-secrets.json")
+val secrets: Map<*, *> = if (secretsFile.exists())
+    JsonSlurper().parse(secretsFile) as Map<*, *>
+else emptyMap<String, String>()
 
 version = "${property("mod.version")}+${sc.current.version}"
 base.archivesName = "${property("mod.id") as String}-neoforge"
@@ -13,6 +21,9 @@ val requiredJava = when {
     sc.current.parsed >= "1.17" -> JavaVersion.VERSION_16
     else -> JavaVersion.VERSION_1_8
 }
+
+val compatibleVersions: List<String> = sc.properties.rawOrNull("mod", "mc_releases")
+    ?.asList().orEmpty().map { it.toString() }
 
 repositories {
     /**
@@ -116,6 +127,55 @@ tasks {
         destinationDirectory.set(
             rootProject.layout.projectDirectory.dir("buildVersions/${project.property("mod.version")}")
         )
+    }*/
+
+
+}
+
+publishMods {
+
+    file = tasks.jar.map { it.archiveFile.get() }
+    additionalFiles.from(tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").map { it.archiveFile.get() })
+
+    val modVersion = property("mod.version") as String
+    type = if (modVersion.contains("alpha")) ALPHA
+    else if (modVersion.contains("beta")) BETA
+    else STABLE
+
+    displayName = "${property("mod.name")} ${property("mod.version")} - ${stonecutter.current.version} Neoforge"
+    version = "${property("mod.version")}"
+    changelog = provider { rootProject.file("CHANGELOG.md").readText() }
+    modLoaders.add("neoforge")
+
+
+    curseforge {
+        projectId = property("publish.curseforge") as String
+        accessToken = (secrets["curseforge_token"] as String?)
+            ?: providers.environmentVariable("CURSEFORGE_TOKEN").orNull
+
+        minecraftVersions.addAll(compatibleVersions)
+//        requires("fabric-api")
+        optional("cloth-config")
+        client = true
+    }
+
+    modrinth {
+        projectId = property("publish.modrinth") as String
+        accessToken = (secrets["modrinth_token"] as String?)
+            ?: providers.environmentVariable("MODRINTH_TOKEN").orNull
+        minecraftVersions.addAll(compatibleVersions)
+//        requires("fabric-api")
+        optional("cloth-config")
+        environment=CLIENT_ONLY
+
+    }
+
+/*    github {
+        accessToken = (secrets["github_token"] as String?)
+            ?: providers.environmentVariable("GITHUB_TOKEN").orNull
+        repository = property("publish.github") as String
+        commitish = "stonecutter"
+
     }*/
 
 }

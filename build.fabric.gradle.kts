@@ -1,7 +1,16 @@
+import groovy.json.JsonSlurper
+import kotlin.collections.get
+
 plugins {
     // This plugin applies the correct loom variant based on the Minecraft version
     id("dev.kikugie.loom-back-compat")
+    id("me.modmuss50.mod-publish-plugin") version "2.2.1"
 }
+
+val secretsFile = file("publish-secrets.json")
+val secrets: Map<*, *> = if (secretsFile.exists())
+    JsonSlurper().parse(secretsFile) as Map<*, *>
+else emptyMap<String, String>()
 
 // DO NOT set group = ...!
 version = "${property("mod.version")}+${sc.current.version}"
@@ -137,5 +146,54 @@ tasks {
             rootProject.layout.projectDirectory.dir("buildVersions/${project.property("mod.version")}")
         )
     }*/
+
+}
+
+
+publishMods {
+
+    file = tasks.jar.map { it.archiveFile.get() }
+    additionalFiles.from(tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").map { it.archiveFile.get() })
+
+    val modVersion = property("mod.version") as String
+    type = if (modVersion.contains("alpha")) ALPHA
+    else if (modVersion.contains("beta")) BETA
+    else STABLE
+
+    displayName = "${property("mod.name")} ${property("mod.version")} - ${stonecutter.current.version} Fabric"
+    version = "${property("mod.version")}"
+    changelog = provider { rootProject.file("CHANGELOG.md").readText() }
+    modLoaders.add("fabric")
+
+
+    curseforge {
+        projectId = property("publish.curseforge") as String
+        accessToken = (secrets["curseforge_token"] as String?)
+            ?: providers.environmentVariable("CURSEFORGE_TOKEN").orNull
+
+        minecraftVersions.addAll(compatibleVersions)
+//        requires("fabric-api")
+        optional("cloth-config")
+        client = true
+    }
+
+    modrinth {
+        projectId = property("publish.modrinth") as String
+        accessToken = (secrets["modrinth_token"] as String?)
+            ?: providers.environmentVariable("MODRINTH_TOKEN").orNull
+        minecraftVersions.addAll(compatibleVersions)
+//        requires("fabric-api")
+        optional("cloth-config")
+        environment=CLIENT_ONLY
+
+    }
+
+    /*    github {
+            accessToken = (secrets["github_token"] as String?)
+                ?: providers.environmentVariable("GITHUB_TOKEN").orNull
+            repository = property("publish.github") as String
+            commitish = "stonecutter"
+
+        }*/
 
 }
