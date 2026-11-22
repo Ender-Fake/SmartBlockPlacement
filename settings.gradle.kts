@@ -48,4 +48,4 @@ stonecutter {
     }
 }
 
-rootProject.name = "Physics Swapping"
+rootProject.name = "Smart Block Placement"
