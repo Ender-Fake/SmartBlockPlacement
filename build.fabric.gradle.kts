@@ -172,7 +172,7 @@ publishMods {
             ?: providers.environmentVariable("CURSEFORGE_TOKEN").orNull
 
         minecraftVersions.addAll(compatibleVersions)
-//        requires("fabric-api")
+        requires("fabric-api")
         optional("cloth-config")
         client = true
     }
@@ -182,7 +182,7 @@ publishMods {
         accessToken = (secrets["modrinth_token"] as String?)
             ?: providers.environmentVariable("MODRINTH_TOKEN").orNull
         minecraftVersions.addAll(compatibleVersions)
-//        requires("fabric-api")
+        requires("fabric-api")
         optional("cloth-config")
         environment=CLIENT_ONLY
 
