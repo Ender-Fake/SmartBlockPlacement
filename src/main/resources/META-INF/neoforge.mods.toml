@@ -24,10 +24,11 @@ modId = "minecraft"
 type = "required"
 versionRange = "${minecraft}"
 ordering = "NONE"
-side = "BOTH"
+side = "CLIENT"
 
 
-[[dependencies.cloth-config]]
+[[dependencies.${id}]]
 modId = "cloth-config"
 type = "optional"
 side = "CLIENT"
+ordering = "AFTER"
