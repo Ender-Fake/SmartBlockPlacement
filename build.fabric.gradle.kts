@@ -7,7 +7,7 @@ plugins {
     id("me.modmuss50.mod-publish-plugin") version "2.2.1"
 }
 
-val secretsFile = file("publish-secrets.json")
+val secretsFile = rootProject.file("publish-secrets.json")
 val secrets: Map<*, *> = if (secretsFile.exists())
     JsonSlurper().parse(secretsFile) as Map<*, *>
 else emptyMap<String, String>()
@@ -152,6 +152,7 @@ tasks {
 
 publishMods {
 
+    dryRun = false
     file = tasks.jar.map { it.archiveFile.get() }
     additionalFiles.from(tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").map { it.archiveFile.get() })
 
@@ -170,7 +171,6 @@ publishMods {
         projectId = property("publish.curseforge") as String
         accessToken = (secrets["curseforge_token"] as String?)
             ?: providers.environmentVariable("CURSEFORGE_TOKEN").orNull
-
         minecraftVersions.addAll(compatibleVersions)
         requires("fabric-api")
         optional("cloth-config")
